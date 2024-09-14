@@ -1,5 +1,5 @@
 from Stack import Stack
-
+import pytest
 class TestStack:
     '''Class Stack in Stack.py'''
 
@@ -70,3 +70,20 @@ class TestStack:
 
         # Case with target not in Stack
         assert(stk.search(15) == -1)
+
+    def test_full(self):
+        '''Test Stack full() method'''
+        stk = Stack([1], 1)
+
+        assert stk.full()
+        assert stk.size() == 1
+        assert stk.pop() == 1
+        stk.push(1)
+
+        # Expect an OverflowError when pushing onto a full stack
+        with pytest.raises(OverflowError):
+            stk.push(2)
+
+        assert stk.full()
+        assert stk.size() == 1
+        assert stk.pop() == 1
